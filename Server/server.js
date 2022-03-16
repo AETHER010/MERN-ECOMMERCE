@@ -12,7 +12,9 @@ connectDatabase();
 
 
 
+
 app.listen(process.env.PORT , ()=>{
     console.log(process.env.NODE_ENV + ` mode`);
     console.log(`server is running on PORT : ${process.env.PORT } in ${process.env.NODE_ENV} mode`);
+    
 })
