@@ -60,6 +60,7 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:[true,'please enter the seller details']
     },
+    
     stock:{
         type:Number,
         required: [true, 'enter the stock for the selected product'],
