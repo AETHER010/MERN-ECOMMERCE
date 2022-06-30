@@ -12,7 +12,7 @@ app.use(cookieParser());
 const products = require("./routes/product");
 //for the users
 const auth = require("./routes/auth");
-
+//productes
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
 

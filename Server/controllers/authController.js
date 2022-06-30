@@ -2,6 +2,8 @@ const User = require("../models/user");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
+const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 //register a user
 
@@ -30,26 +32,108 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("please provide email and password", 400));
   }
 
-  //1. check if user exists
+  //2. check if user exists
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
     return next(new ErrorHandler("Invalid credentials", 401));
   }
 
-  //2. check if password is correct
+  //3. check if password is correct
   const isPasswordMatch = await user.comparePassword(password);
 
   if (!isPasswordMatch) {
-    return next(new ErrorHandler("Invalid credentials", 401));
+    return next(new ErrorHandler("Email or Password is Invalid", 401));
   }
 
-  //3. generate token
-  const token = user.getJwtToken();
+  //3. generate token and send to client
+  sendToken(user, 200, res);
+  // const token = user.getJwtToken();
+
+  // res.status(200).json({
+  //   success: true,
+  //   token,
+  //   user,
+  // });
+});
+
+//forgot password => /api/v1/password/forgot
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new ErrorHandler("No user with this email", 404));
+  }
+
+  //get token
+  const resetToken = user.getResetPasswordToken();
+
+  //save token to user
+  await user.save({ validateBeforeSave: false });
+
+  //create reset password  url
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/password/reset/${resetToken}`;
+
+  //send email to user
+  const message = `your password reset token is as follows: ${resetUrl} \n\n if you have not send this request then ignore it`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "Password reset token",
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Token sent to email : ${user.email}`,
+    });
+  } catch (err) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorHandler("Error sending the email", 500));
+  }
+});
+
+//reset Password => /api/v1/password/reset/:token
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  //hash url token
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new ErrorHandler("Password reset token is invalid", 400));
+  }
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Password does not match", 400));
+  }
+
+  //setting new password
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+  sendToken(user, 200, res);
+});
+
+//Get current logged user detail => /api/v1/me
+exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
 
   res.status(200).json({
     success: true,
-    token,
     user,
   });
 });
