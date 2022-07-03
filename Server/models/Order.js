@@ -15,7 +15,7 @@ const orderSchema = mongoose.Schema({
       required: true,
     },
     postalCode: {
-      type: String,
+      type: Number,
       required: true,
     },
     country: {
@@ -48,8 +48,8 @@ const orderSchema = mongoose.Schema({
       },
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
         required: true,
+        ref: "Product",
       },
     },
   ],
