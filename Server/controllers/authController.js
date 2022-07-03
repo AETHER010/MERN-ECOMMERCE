@@ -6,7 +6,6 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 
 //register a user
-
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -197,7 +196,7 @@ exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
 
 // get user details => /api/v1/admin/users/:id
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findbyID(req.params.id);
+  const user = await User.findById(req.params.id);
 
   if (!user) {
     return next(
@@ -208,5 +207,37 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
+  });
+});
+
+//update user profile => /api/v1/admin/users/:id
+exports.updateUserProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindandModify: false,
+  });
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//delete user => /api/v1/admin/users/:id
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exits with id : ${req.params.id}`)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "User deleted successfully",
   });
 });
