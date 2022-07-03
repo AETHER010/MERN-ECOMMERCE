@@ -138,6 +138,40 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//update/change password => /api/v1/password/update
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select(`+password`);
+
+  //previous password
+  const isMatch = await user.comparePassword(req.body.oldPassword);
+  if (!isMatch) {
+    return next(new ErrorHandler("Previous Password is incorrect", 400));
+  }
+  user.password = req.body.password;
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+//update logged in user => /api/v1/me/update
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  //update profile pic or avtar
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindandModify: false,
+  });
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
 //logout user => /api/v1/logout
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
   res.cookie("token", null, {
@@ -147,5 +181,32 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "logged out",
+  });
+});
+
+//ADMIN ROUTES
+//get all user => /api/v1/admin/users
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+// get user details => /api/v1/admin/users/:id
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findbyID(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exits with id : ${req.params.id}`)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
   });
 });
