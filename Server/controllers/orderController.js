@@ -32,3 +32,28 @@ exports.newOrder = catchAsync(async (req, res, next) => {
     order,
   });
 });
+
+//get single order => /api/v1/order/:id
+exports.getSingleOrder = catchAsync(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+  if (!order) {
+    return next(new Error("Order not found"));
+  }
+  res.status(200).json({
+    success: true,
+    order,
+  });
+});
+
+//Get Loggined user order => /api/v1/order/me
+exports.getLoggedInUserOrder = catchAsync(async (req, res, next) => {
+  const orders = await Order.find({ user: req.user.id });
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+});
