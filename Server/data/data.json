@@ -1,0 +1,87 @@
+[
+  {
+    "name": "sandisk 128GB memory card",
+    "price": 3000,
+    "description": "Ultra fast cards to take better pictures  and full HD videos with your midrange cameras and recorders. this cards has high download speed with high capacity and better performance to capture and store the pictures and videos in high resolutions.",
+    "ratings": 4.3,
+    "images": [
+      {
+        "public_id": 10001,
+        "url": "https://m.media-amazon.com/images/I/8194p4lS-3L._AC_SL1500_.jpg"
+      }
+    ],
+    "category": "Electronics",
+    "seller": "Amazon",
+    "stock": 30,
+    "noOfReviews": 20,
+    "reviews": []
+  },
+  {
+    "name": "FANTECH HG15 CAPTAIN 7.1 STEREO GAMING HEADSET",
+    "price": 3999,
+    "description": "Light weight for a long time Volume adjuster Full Size Over-Ear Headset Connect with a USB Advance 7.1 Virtual Surround Sound Engine RGB LED Light Programable Support Noise cancellation Microphone",
+    "ratings": 4.9,
+    "images": [
+      {
+        "public_id": 10010,
+        "url": "https://i0.wp.com/fantechnepal.com/wp-content/uploads/2018/09/20180126040951-14b09279-4.jpg?fit=960%2C960&ssl=1"
+      }
+    ],
+    "category": "Headphones",
+    "seller": "Fan tech",
+    "stock": 20,
+    "noOfReviews": 50,
+    "reviews": []
+  },
+  {
+    "name": "FANTECH HG23 Headphone Personalize With Octane 7.1 RGB USB Just Wired Gaming Headset Alloy Earmuffs For PC PS4 Gaming Headphones",
+    "price": 4999,
+    "description": "True 7.1 surround sound gaming headset Style: Headband Communication: Wired Connectors: USB Use: Computer Function: Microphone",
+    "ratings": 4.8,
+    "images": [
+      {
+        "public_id": 10015,
+        "url": "https://i0.wp.com/fantechnepal.com/wp-content/uploads/2020/01/b92cf541-1.png?fit=1000%2C1000&ssl=1"
+      }
+    ],
+    "category": "Headphones",
+    "seller": "Fan tech",
+    "stock": 15,
+    "noOfReviews": 20,
+    "reviews": []
+  },
+  {
+    "name": "FANTECH FIGHTER K613",
+    "price": 2999,
+    "description": "FANTECH k613 – FIGHTER TKL II (PRO GAMING KEYBOARD) PRODUCT NAME : Backlit Floating-keys Multimedia Gaming Keyboard NUMBER OF KEYS : 87 keys WORKING VOLTAGE: DC 4.2-5.5V SWITCH : Floating Switch 45g Trigger Pressure POLLING RATE : 1000Hz Ultrapolling Rate KEYSTROKE : 8 Million Keystroke Lifetime GHOSTING : 19 Keys Anti-ghosting CABLE : Nylon Copper Cable Operating systems: Windows XP/7/8/10; MAC OS One free USB 2.0/3.0 port FANTECH K613 is a plug and play usb interface RGB keyboard, no need to install any driver for your first use. Keys Function Map",
+    "ratings": 4.7,
+    "images": [
+      {
+        "public_id": 10021,
+        "url": "https://i0.wp.com/fantechnepal.com/wp-content/uploads/2019/07/3ddcb684.jpg?fit=1000%2C1000&ssl=1"
+      }
+    ],
+    "category": "Accessories",
+    "seller": "Fan tech",
+    "stock": 25,
+    "noOfReviews": 40,
+    "reviews": []
+  },
+  {
+    "name": "FANTECH FIGHTER K613",
+    "price": 5999,
+    "description": "FANTECH k613 – FIGHTER TKL II (PRO GAMING KEYBOARD) PRODUCT NAME : Backlit Floating-keys Multimedia Gaming Keyboard NUMBER OF KEYS : 87 keys WORKING VOLTAGE: DC 4.2-5.5V SWITCH : Floating Switch 45g Trigger Pressure POLLING RATE : 1000Hz Ultrapolling Rate KEYSTROKE : 8 Million Keystroke Lifetime GHOSTING : 19 Keys Anti-ghosting CABLE : Nylon Copper Cable Operating systems: Windows XP/7/8/10; MAC OS One free USB 2.0/3.0 port FANTECH K613 is a plug and play usb interface RGB keyboard, no need to install any driver for your first use. Keys Function Map",
+    "ratings": 4.3,
+    "images": [
+      {
+        "public_id": 10012,
+        "url": "https://i0.wp.com/fantechnepal.com/wp-content/uploads/2019/07/3ddcb684.jpg?fit=1000%2C1000&ssl=1"
+      }
+    ],
+    "category": "Headphones",
+    "seller": "Fan tech",
+    "stock": 5,
+    "noOfReviews": 9,
+    "reviews": []
+  }
+]
